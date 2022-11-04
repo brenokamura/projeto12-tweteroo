@@ -43,7 +43,7 @@ app.post('/tweets', (req, res) => {
     return;
   }
   
-  users.push(req.body);
+  tweets.push(req.body);
   res.send("Tweet postado com sucesso!");
 });
 
