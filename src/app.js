@@ -33,7 +33,7 @@ app.post('/sign-up', (req, res) => {
 
 app.post('/tweets', (req, res) => {
   const { username, tweet } = req.body;
-
+  const {avatar} = users.find((user) => user.username === user);
   if (!username) {
     res.send("O campo Nome do usuário deve estar preenchido!");
     return;
@@ -43,14 +43,14 @@ app.post('/tweets', (req, res) => {
     return;
   }
   
-  tweets.push(req.body);
+  tweets.push(req.body, avatar);
   res.send("Tweet postado com sucesso!");
 });
 
 app.get('/tweets', (req, res) => {
   const lastTenTweets = tweets.slice(-10);
   
-  res.send(lasTenTweets);
+  res.send(lastTenTweets);
 });
 
 app.listen(3200)
