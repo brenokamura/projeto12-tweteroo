@@ -48,7 +48,9 @@ app.post('/tweets', (req, res) => {
 });
 
 app.get('/tweets', (req, res) => {
-  res.send("Get tweets funcionando...");
+  const lastTenTweets = tweets.slice(-10);
+  
+  res.send(lasTenTweets);
 });
 
 app.listen(3200)
