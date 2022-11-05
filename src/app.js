@@ -10,23 +10,24 @@ const tweets = [];
 
 app.post('/sign-up', (req, res) => {
   const { username, avatar } = req.body;
-  const userAlreadyExists = users.find((user) => user.username === user);
-
+  
   if (!username) {
-    res.send("Preencha o campo Nome do usuário!");
+    res.status(400).send("Preencha o campo Nome do usuário!");
     return;
   } else {
   } if (!avatar) {
-    res.send("Insira o link do seu avatar!");
+    res.status(400).send("Insira o link do seu avatar!");
     return;
-  }else{ 
-  }if (userAlreadyExists) {
+  }
+
+  const isUser = users.find((user) => user.username === user);
+  if (isUser) {
     res.send("Usuário já exite! Por favor, insira outro usuário!");
     return;
   }
-  users.push(req.body);
+  users.push({username, avatar});
   console.log(users)
-  res.send("Cadastro realizado com sucesso!");
+  res.status(201).send("Cadastro realizado com sucesso!");
 });
 
 
@@ -36,17 +37,17 @@ app.post('/tweets', (req, res) => {
   const  {avatar} = users.find(user => user.username === username)
 
   if (!username) {
-    res.send("O campo Nome do usuário deve estar preenchido!");
+    res.status(400).send("O campo Nome do usuário deve estar preenchido!");
     return;
   } else {
   } if (!tweet) {
-    res.send("Preencha o campo Tweet!");
+    res.status(400).send("Preencha o campo Tweet!");
     return;
   }
 
   tweets.push({ username, tweet, avatar });
   console.log(tweets);
-  res.send("Tweet postado com sucesso!");
+  res.status(201).send("Tweet postado com sucesso!");
 });
 
 app.get('/tweets', (req, res) => {
