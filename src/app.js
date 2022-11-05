@@ -15,17 +15,17 @@ app.post('/sign-up', (req, res) => {
   if (!username) {
     res.send("Preencha o campo Nome do usuário!");
     return;
-  }else{
-  }if (userAlreadyExists){
-    res.send("Usuário já existe! Por favor, entre com outro usuário!");
-    return;
-  }else{
-  }if (!avatar) {
+  } else {
+  } if (!avatar) {
     res.send("Insira o link do seu avatar!");
     return;
+  }else{ 
+  }if (userAlreadyExists) {
+    res.send("Usuário já exite! Por favor, insira outro usuário!");
+    return;
   }
- 
   users.push(req.body);
+  console.log(users)
   res.send("Cadastro realizado com sucesso!");
 });
 
@@ -33,22 +33,25 @@ app.post('/sign-up', (req, res) => {
 
 app.post('/tweets', (req, res) => {
   const { username, tweet } = req.body;
+  const  {avatar} = users.find(user => user.username === username)
 
   if (!username) {
     res.send("O campo Nome do usuário deve estar preenchido!");
     return;
-  }else{
-  }if (!tweet) {
+  } else {
+  } if (!tweet) {
     res.send("Preencha o campo Tweet!");
     return;
   }
-  
-  users.push(req.body);
+
+  tweets.push({ username, tweet, avatar });
+  console.log(tweets);
   res.send("Tweet postado com sucesso!");
 });
 
 app.get('/tweets', (req, res) => {
-  res.send("Get tweets funcionando...");
+  const lastTenTweets = tweets.slice(-10);
+  res.send(lastTenTweets);
 });
 
-app.listen(3200)
+app.listen(5000)
